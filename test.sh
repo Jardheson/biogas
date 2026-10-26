@@ -6,7 +6,7 @@ PORTA="${HOST_PORT:-8080}"
 BASE="http://localhost:${PORTA}"
 
 echo "== T1: Pre-flight =="
-for f in Dockerfile nginx.conf index.html calculadora-biogas.html css/estilo.css js/biogas-engine.js js/app.js js/calc-modal.js; do
+for f in Dockerfile nginx.conf index.html calculadora-biogas.html css/estilo.css js/biogas-engine.js js/app.js js/calc-modal.js assets/img/logo-atlas-gas-renovavel.png; do
   [ -f "$f" ] || { echo "  FALHA: $f ausente"; exit 1; }; echo "  OK: $f"
 done
 
@@ -23,20 +23,20 @@ sleep 3
 echo "== T5: Sintaxe Nginx (no container em execução) =="
 docker exec biogas-panel nginx -t 2>&1
 
-echo "== T6: HTTP 200 na raiz =="
+echo "== T6: HTTP 302 na raiz =="
 code=$(curl -s -o /dev/null -w "%{http_code}" "$BASE/")
-[ "$code" = "200" ] && echo "  OK: HTTP $code" || echo "  FALHA: HTTP $code"
+[ "$code" = "302" ] && echo "  OK: HTTP $code" || echo "  FALHA: HTTP $code"
 
-echo "== T7: index.html redireciona para a calculadora =="
-curl -s "$BASE/" | grep -q "calculadora-biogas.html" && echo "  OK: redirecionamento presente" || echo "  FALHA: redirecionamento ausente"
+echo "== T7: raiz redireciona para a calculadora =="
+curl -sI "$BASE/" | grep -iq '^location: /calculadora-biogas.html' && echo "  OK: redirecionamento presente" || echo "  FALHA: redirecionamento ausente"
 
 echo "== T8: Calculadora local =="
 c=$(curl -s -o /dev/null -w "%{http_code}" "$BASE/calculadora-biogas.html")
 [ "$c" = "200" ] && echo "  OK: HTTP $c" || echo "  FALHA: HTTP $c"
 curl -s "$BASE/calculadora-biogas.html" | grep -q "storymaps.arcgis.com" && echo "  OK: link do StoryMaps" || echo "  FALHA: link do StoryMaps ausente"
 
-echo "== T9: CSS e JS servidos =="
-for u in /css/estilo.css /js/biogas-engine.js /js/app.js /js/calc-modal.js; do
+echo "== T9: CSS, JS e assets servidos =="
+for u in /css/estilo.css /js/biogas-engine.js /js/app.js /js/calc-modal.js /assets/img/logo-atlas-gas-renovavel.png; do
   c=$(curl -s -o /dev/null -w "%{http_code}" "$BASE$u")
   [ "$c" = "200" ] && echo "  OK: $u ($c)" || echo "  FALHA: $u ($c)"
 done
@@ -47,8 +47,10 @@ docker inspect biogas-panel --format '  health={{.State.Health.Status}}'
 
 echo "== T11: Headers de segurança =="
 for u in / /calculadora-biogas.html /css/estilo.css; do
-  h=$(curl -sI "$BASE$u" | grep -ic 'x-content-type-options')
-  [ "$h" -ge 1 ] && echo "  OK: $u tem X-Content-Type-Options" || echo "  FALHA: $u sem X-Content-Type-Options"
+  for header in x-content-type-options referrer-policy content-security-policy permissions-policy; do
+    h=$(curl -sI "$BASE$u" | grep -ic "$header")
+    [ "$h" -ge 1 ] && echo "  OK: $u tem $header" || echo "  FALHA: $u sem $header"
+  done
 done
 
 echo "== T12: StoryMaps permite embed? =="

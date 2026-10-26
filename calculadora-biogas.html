@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/estilo.css?v=20">
+  <link rel="stylesheet" href="css/estilo.css?v=22">
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo principal</a>
@@ -25,7 +25,7 @@
           <div class="atlas-topo">
             <div class="atlas-marca">
               <div class="atlas-logo-link" aria-label="Atlas do Gás Renovável Ceará">
-                <img class="atlas-logo" src="./Atlas do Gás Renovável &amp; Calculadora.png" alt="Atlas do Gás Renovável Ceará">
+                <img class="atlas-logo" src="assets/img/logo-atlas-gas-renovavel.png" alt="Atlas do Gás Renovável Ceará">
                 <span class="atlas-logo-rotulo" aria-hidden="true">
                   <span class="atlas-logo-titulo">ATLAS DO GÁS RENOVÁVEL</span>
                   <span class="atlas-logo-subtitulo">CEARÁ</span>
@@ -62,6 +62,16 @@
         <button type="button" class="atlas-modal-fechar" id="btn-calc-fechar">Fechar</button>
       </div>
       <div class="atlas-modal-corpo">
+        <header class="topo-calculadora" aria-label="Introdução da calculadora">
+          <div class="selo-calculadora"><i></i> Estimativa preliminar de triagem</div>
+          <h2 class="titulo-calculadora">Quanto <em>biogás</em> cabe no seu resíduo</h2>
+          <p class="chamada-calculadora">
+            Informe a massa gerada por mês. A calculadora aplica os fatores de rendimento da metodologia
+            e devolve biogás, metano e energia equivalente — o suficiente para decidir se vale seguir
+            para um estudo detalhado.
+          </p>
+        </header>
+
         <div class="grade">
 
           <!-- ============ ENTRADAS ============ -->
@@ -155,13 +165,7 @@
         <section class="notas" aria-label="Notas metodológicas">
           <div>
             <h3>Fatores aplicados</h3>
-            <ul>
-              <li><span>Resíduo orgânico de alimentos <i>EPE</i></span><b>91,7 Nm³/t</b></li>
-              <li><span>Resíduos vegetais / poda <i>Embrapa</i></span><b>40 Nm³/t</b></li>
-              <li><span>Esterco bovino fresco <i>Embrapa</i></span><b>38 Nm³/t</b></li>
-              <li><span>Dejetos suínos frescos <i>Embrapa</i></span><b>79 Nm³/t</b></li>
-              <li><span>Dejetos/esterco de aves <i>Embrapa</i></span><b>50 Nm³/t</b></li>
-            </ul>
+            <ul id="lista-fatores"></ul>
           </div>
 
           <div>
@@ -180,7 +184,7 @@
   </div>
 
   <script src="js/biogas-engine.js?v=2"></script>
-  <script src="js/app.js?v=2"></script>
+  <script src="js/app.js?v=4"></script>
   <script src="js/calc-modal.js?v=4"></script>
 </body>
 </html>

@@ -32,6 +32,7 @@ embutido em `iframe` e a **calculadora de biogás** em um modal sobreposto.
 |---|---|---|
 | [calculadora-biogas.html](calculadora-biogas.html) | Página principal: StoryMaps em `iframe` e modal da calculadora (só marcação) | [abrir](calculadora-biogas.html) |
 | [index.html](index.html) | Redireciona `/` para a página principal | [abrir](index.html) |
+| [assets/img/logo-atlas-gas-renovavel.png](assets/img/logo-atlas-gas-renovavel.png) | Logo do topo do atlas | [abrir](assets/img/logo-atlas-gas-renovavel.png) |
 | [css/estilo.css](css/estilo.css) | Estilo, breakpoints responsivos, mídias de acessibilidade e suporte a `safe-area` | [abrir](css/estilo.css) |
 | [js/biogas-engine.js](js/biogas-engine.js) | Motor de cálculo puro (v1.1.0), sem dependências | [abrir](js/biogas-engine.js) |
 | [js/app.js](js/app.js) | Interface: linhas de entrada, cálculo e pintura do resultado | [abrir](js/app.js) |
@@ -50,6 +51,9 @@ embutido em `iframe` e a **calculadora de biogás** em um modal sobreposto.
 biogas/
 ├── calculadora-biogas.html     # página principal (marcação)
 ├── index.html                  # redirecionamento
+├── assets/
+│   └── img/
+│       └── logo-atlas-gas-renovavel.png
 ├── css/
 │   └── estilo.css
 ├── js/
@@ -64,8 +68,8 @@ biogas/
 └── README.md
 ```
 
-Convenção: **`css/` para estilo, `js/` para script**. O HTML na raiz fica
-apenas com marcação — sem CSS nem JavaScript inline.
+Convenção: **`css/` para estilo, `js/` para script e `assets/img/` para imagem**.
+O HTML na raiz fica apenas com marcação — sem CSS nem JavaScript inline.
 
 ---
 
@@ -110,6 +114,7 @@ a barra do cabeçalho fica colada no topo, sobreposta à borda superior do atlas
                      │  /usr/share/nginx/html/                    │
                      │    ├── index.html            (redireciona) │
                      │    ├── calculadora-biogas.html             │
+                     │    ├── assets/img/  (logo do topo)         │
                      │    ├── css/estilo.css                      │
                      │    └── js/{biogas-engine,app,calc-modal}   │
                      │                                            │
@@ -238,7 +243,7 @@ chmod +x test.sh
 
 | # | Teste | Valida | Resultado esperado |
 |---|-------|--------|--------------------|
-| T1 | Pre-flight | Existência dos 8 arquivos obrigatórios | Todos `OK` |
+| T1 | Pre-flight | Existência dos 9 arquivos obrigatórios | Todos `OK` |
 | T2 | Compose válido | Sintaxe do [docker-compose.yml](docker-compose.yml) | Sem erro |
 | T3 | Build | Construção da imagem a partir do [Dockerfile](Dockerfile) | `Built` |
 | T4 | Subir container | `docker compose up -d` | `Started` |
@@ -246,7 +251,7 @@ chmod +x test.sh
 | T6 | HTTP raiz | `GET /` | `200` |
 | T7 | Redirecionamento | [index.html](index.html) aponta para a calculadora | `OK` |
 | T8 | Calculadora | `GET /calculadora-biogas.html` + link do StoryMaps | `200` + `OK` |
-| T9 | CSS e JS | `GET` de [css/estilo.css](css/estilo.css) e dos 3 scripts | `200` (4×) |
+| T9 | CSS, JS e asset | `GET` de [css/estilo.css](css/estilo.css), dos 3 scripts e da logo | `200` (5×) |
 | T10 | Healthcheck | `.State.Health.Status` | `healthy` |
 | T11 | Headers de segurança | `X-Content-Type-Options` em `/`, `.html` e `.css` | `OK` (3×) |
 | T12 | Embed StoryMaps | Cabeçalhos `frame-ancestors` / `X-Frame-Options` da Esri | Informativo |
@@ -254,8 +259,8 @@ chmod +x test.sh
 ### Resultado medido (última execução)
 
 ```
-T1 OK (8 arquivos) · T2 OK · T3 Built · T4 Started · T5 syntax is ok
-T6 200 · T7 OK · T8 200 + StoryMaps OK · T9 200 (4×)
+T1 OK (9 arquivos) · T2 OK · T3 Built · T4 Started · T5 syntax is ok
+T6 200 · T7 OK · T8 200 + StoryMaps OK · T9 200 (5×)
 T10 healthy · T11 OK (3×) · T12 frame-ancestors https: http: 'self'
 ```
 
@@ -297,11 +302,12 @@ Presentes em **todas** as rotas (verificado em T12):
 ### Conteúdo copiado para a imagem
 
 Verificado com `docker exec biogas-panel find /usr/share/nginx/html -type f` — a imagem contém
-exatamente 6 arquivos:
+exatamente 7 arquivos:
 
 ```
 /usr/share/nginx/html/index.html
 /usr/share/nginx/html/calculadora-biogas.html
+/usr/share/nginx/html/assets/img/logo-atlas-gas-renovavel.png
 /usr/share/nginx/html/css/estilo.css
 /usr/share/nginx/html/js/biogas-engine.js
 /usr/share/nginx/html/js/app.js
@@ -322,16 +328,17 @@ Transferência medida na página principal (bytes):
 
 | Recurso | Em disco | Com gzip |
 |---|---:|---:|
-| [calculadora-biogas.html](calculadora-biogas.html) | 6.906 | 2.042 |
-| [css/estilo.css](css/estilo.css) | 18.648 | 5.137 |
-| [js/biogas-engine.js](js/biogas-engine.js) | 15.303 | 4.343 |
-| [js/app.js](js/app.js) | 9.725 | 2.913 |
-| [js/calc-modal.js](js/calc-modal.js) | 1.905 | 694 |
-| **Total** | **52.487** | **15.129** |
+| [calculadora-biogas.html](calculadora-biogas.html) | 8.765 | 2.559 |
+| [css/estilo.css](css/estilo.css) | 18.807 | 5.335 |
+| [js/biogas-engine.js](js/biogas-engine.js) | 14.868 | 4.312 |
+| [js/app.js](js/app.js) | 9.460 | 2.889 |
+| [js/calc-modal.js](js/calc-modal.js) | 1.854 | 689 |
+| [assets/img/logo-atlas-gas-renovavel.png](assets/img/logo-atlas-gas-renovavel.png) | 20.860 | 20.860 |
+| **Total** | **74.614** | **36.644** |
 
-O CSS e os três scripts são servidos com cache de 7 dias: na segunda visita o navegador baixa
-apenas o HTML (~2,0 KB comprimidos). Em troca, a **primeira** visita transfere mais bytes do que
-um HTML monolítico transferia — a separação ganha em cache e manutenção, não na carga inicial.
+O CSS, os três scripts e a logo são servidos com cache de 7 dias: na segunda visita o navegador
+baixa apenas o HTML (~2,5 KB comprimidos). Em troca, a **primeira** visita transfere mais bytes do
+que um HTML monolítico transferia — a separação ganha em cache e manutenção, não na carga inicial.
 
 O `iframe` do StoryMaps fica fora dessa conta: é conteúdo de origem externa, carregado com
 `loading="lazy"`.

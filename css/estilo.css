@@ -25,7 +25,6 @@
 *{box-sizing:border-box;}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;}
 img,iframe,svg,video{max-width:100%;}
-img.atlas-frame{height:auto;}
 body{overflow-wrap:break-word;}
 a,button,select,input,summary{touch-action:manipulation;}
 a,button,summary{-webkit-tap-highlight-color:rgba(47,91,216,.18);}
@@ -61,7 +60,8 @@ body{
   --gutter:clamp(12px,1.5vw,40px);
   --gutter-left:max(var(--gutter),env(safe-area-inset-left));
   --gutter-right:max(var(--gutter),env(safe-area-inset-right));
-  width:100%;max-width:none;margin:0;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;
+  width:100%;max-width:none;margin:0;min-height:100vh;min-height:100dvh;
+  display:flex;flex-direction:column;
   padding-block:env(safe-area-inset-top) env(safe-area-inset-bottom);
   padding-inline:var(--gutter-left) var(--gutter-right);
 }
@@ -69,11 +69,14 @@ main{flex:1;display:flex;min-height:0;}
 .atlas{padding:0 0 8px;flex:1;display:flex;min-height:0;}
 .atlas-card{display:flex;flex-direction:column;flex:1;min-height:0;}
 .atlas-topo{
-  position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:26px;
+  position:relative;z-index:2;display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:26px;
   margin-inline:calc(var(--gutter-left) * -1) calc(var(--gutter-right) * -1);
   padding:9px 14px 8px;background:#FFFFFF;border:0;border-radius:0;box-shadow:none;
 }
-.atlas-marca,.atlas-logo-link{position:relative;z-index:1;display:flex;align-items:center;min-width:0;}
+.atlas-marca,.atlas-logo-link{
+  position:relative;z-index:1;display:flex;align-items:center;min-width:0;
+}
 .atlas-marca{justify-self:start;}
 .atlas-logo-link{gap:8px;color:inherit;text-decoration:none;}
 .atlas-logo{display:block;height:24px;width:auto;max-width:none;flex:none;}
@@ -82,17 +85,27 @@ main{flex:1;display:flex;min-height:0;}
   color:#5E7F64;font-size:10px;font-weight:700;letter-spacing:.01em;white-space:nowrap;
 }
 .atlas-logo-subtitulo{font-size:9px;}
-.atlas-nav{position:relative;z-index:1;display:flex;justify-content:center;justify-self:center;align-items:center;align-self:center;min-height:29px;gap:clamp(22px,2.8vw,44px);min-width:0;}
-.atlas-nav-link{display:inline-flex;align-items:center;justify-content:center;align-self:center;height:29px;color:#16324B;text-decoration:none;font-size:13px;font-weight:700;line-height:1;white-space:nowrap;}
+.atlas-nav{
+  position:relative;z-index:1;display:flex;justify-content:center;justify-self:center;
+  align-items:center;align-self:center;min-height:29px;min-width:0;
+  gap:clamp(22px,2.8vw,44px);
+}
+.atlas-nav-link{
+  display:inline-flex;align-items:center;justify-content:center;align-self:center;
+  height:29px;color:#16324B;text-decoration:none;font-size:13px;font-weight:700;
+  line-height:1;white-space:nowrap;
+}
 .atlas-nav-link:hover,.atlas-nav-link:focus-visible{color:#17324A;opacity:.82;}
-.atlas-link{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;padding:8px 22px;border-radius:var(--r-pill);text-decoration:none;font-size:12px;font-weight:700;line-height:1;}
+.atlas-link{
+  display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;
+  padding:8px 22px;border-radius:var(--r-pill);text-decoration:none;
+  font-size:12px;font-weight:700;line-height:1;
+}
 /* atlas em tela cheia, fixo atras do conteudo: apenas a pagina rola */
 .atlas-frame{position:fixed;inset:0;z-index:0;width:100%;height:100dvh;background:#fff;border:0;}
 .atlas-acoes{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:9px;align-items:center;justify-content:flex-end;justify-self:end;}
 .atlas-link--cta{font-family:var(--fonte);cursor:pointer;border:0;background:#0A6B26;color:#DCE978;box-shadow:none;min-width:124px;min-height:29px;padding:7px 20px;border-radius:999px;}
 .atlas-link--cta:hover{background:#085820;color:#DCE978;}
-.atlas-link.secundario{font-family:var(--fonte);cursor:pointer;background:var(--branco);color:var(--fibra);border-color:var(--borda);}
-.atlas-link.secundario:hover{background:var(--nevoa);border-color:var(--fibra-3);}
 
 /* atlas em modal */
 .atlas-modal{position:fixed;inset:0;z-index:70;display:flex;padding:24px;background:rgba(18,26,22,.72);overscroll-behavior:contain;}
@@ -103,12 +116,29 @@ main{flex:1;display:flex;min-height:0;}
 .atlas-modal-topo h2{margin:0;font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--fibra-3);}
 .atlas-modal-fechar{font-family:var(--fonte);font-size:13px;font-weight:500;padding:10px 18px;border-radius:var(--r-pill);border:1px solid var(--borda);background:var(--branco);color:var(--fibra);cursor:pointer;}
 .atlas-modal-fechar:hover{background:var(--nevoa);border-color:var(--fibra-3);}
-.atlas-modal-frame{display:block;flex:1;width:100%;border:0;background:#fff;}
 .atlas-modal-corpo{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:34px 26px 60px;}
 .atlas-modal-corpo .grade{padding-top:0;}
+
+.topo-calculadora{padding:2px 0 34px;}
+.selo-calculadora{
+  display:inline-flex;align-items:center;gap:9px;
+  background:var(--branco);border:1px solid var(--borda);
+  border-radius:var(--r-pill);padding:6px 15px 6px 11px;
+  font-size:12px;font-weight:500;letter-spacing:.02em;color:var(--fibra-2);
+}
+.selo-calculadora i{width:7px;height:7px;border-radius:50%;background:var(--fermento);display:block;flex:none;}
+.titulo-calculadora{
+  font-size:clamp(32px,5.4vw,54px);font-weight:600;line-height:1.04;
+  letter-spacing:-.035em;margin:20px 0 14px;max-width:15ch;color:var(--fibra);
+}
+.titulo-calculadora em{font-style:normal;color:var(--fermento);}
+.chamada-calculadora{
+  max-width:56ch;margin:0;color:var(--fibra-2);
+  font-size:16.5px;font-weight:300;
+}
+
 @media (max-width:920px){
   .atlas-topo{grid-template-columns:1fr;justify-items:center;gap:12px;padding:10px 16px;}
-  .atlas-topo::after{height:14px;}
   .atlas-nav{flex-wrap:wrap;gap:12px 18px;}
   .atlas-acoes{width:100%;justify-content:center;}
   .atlas-link--cta{min-width:180px;}
@@ -116,23 +146,8 @@ main{flex:1;display:flex;min-height:0;}
   .atlas-modal-caixa{border-radius:0;}
   .atlas-modal-topo h2{font-size:11px;}
   .atlas-modal-corpo{padding:24px 18px 48px;}
+  .topo-calculadora{padding-bottom:28px;}
 }
-
-/* ================= cabeçalho ================= */
-.topo{padding:52px 0 34px;}
-.selo{
-  display:inline-flex;align-items:center;gap:9px;
-  background:var(--branco);border:1px solid var(--borda);
-  border-radius:var(--r-pill);padding:6px 15px 6px 11px;
-  font-size:12px;font-weight:500;letter-spacing:.02em;color:var(--fibra-2);
-}
-.selo i{width:7px;height:7px;border-radius:50%;background:var(--fermento);display:block;}
-h1{
-  font-weight:600;font-size:clamp(32px,5.4vw,54px);line-height:1.04;
-  letter-spacing:-.035em;margin:20px 0 14px;max-width:15ch;
-}
-h1 em{font-style:normal;color:var(--fermento);}
-.chamada{max-width:56ch;color:var(--fibra-2);margin:0;font-weight:300;font-size:16.5px;}
 
 /* ================= grade ================= */
 .grade{display:grid;grid-template-columns:1.08fr .92fr;gap:40px;padding-top:38px;align-items:start;}
@@ -341,16 +356,16 @@ select,input[type=number]{min-height:44px;}
   body{background-attachment:scroll;}
   /* evita o zoom automático do iOS Safari ao focar campos (WCAG 1.4.4) */
   select,input[type=number]{font-size:16px;}
+  .titulo-calculadora{font-size:clamp(28px,11vw,46px);}
+  .chamada-calculadora{font-size:15px;}
   .atlas-logo{height:22px;}
   .atlas-logo-titulo{font-size:9px;}
   .atlas-logo-subtitulo{font-size:8px;}
   .atlas-nav-link{font-size:12px;}
   .atlas-topo{padding:10px 14px;}
-  .atlas-topo::after{height:12px;}
   .coluna{padding:20px 18px 18px;}
   .no-valor{font-size:clamp(19px,7vw,26px);}
   .fixos{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));}
-  .topo{padding:34px 0 24px;}
   .grade{padding-top:26px;}
 }
 @media (max-width:420px){
@@ -373,7 +388,6 @@ select,input[type=number]{min-height:44px;}
 /* celulares na horizontal / janelas baixas: preserva altura útil do atlas */
 @media (max-height:540px){
   .atlas-topo{padding:10px 14px;}
-  .atlas-topo::after{height:10px;}
   .atlas-modal-topo{padding:10px 14px;}
   .atlas-modal-corpo{padding:18px 14px 40px;}
 }
@@ -406,7 +420,7 @@ select,input[type=number]{min-height:44px;}
 @media (min-width:2400px){
   body{font-size:19px;}
   .card-val{font-size:26px;}
-  .atlas-topo h2,.atlas-modal-topo h2,.cabecalho-bloco h2{font-size:14px;}
+  .atlas-modal-topo h2,.cabecalho-bloco h2{font-size:14px;}
   .campo > label,.card-rot,.fixo dt,.no-nome,.coluna-topo{font-size:13.5px;}
 }
 
