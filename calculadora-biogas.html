@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/estilo.css?v=19">
+  <link rel="stylesheet" href="css/estilo.css?v=20">
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo principal</a>
@@ -20,20 +20,32 @@
     <h1 class="sr-only">Atlas do gás renovável Ceará e calculadora de biogás</h1>
 
     <main id="conteudo" tabindex="-1">
-      <section class="atlas" aria-labelledby="rot-atlas">
+      <section class="atlas" aria-label="Atlas do Gás Renovável Ceará">
         <div class="atlas-card">
           <div class="atlas-topo">
-            <div>
-              <h2 id="rot-atlas">Atlas do Gás Renovável Ceará</h2>
-              <p>Consulte o atlas nesta mesma página e abra a calculadora para estimar biogás, metano e energia.</p>
+            <div class="atlas-marca">
+              <div class="atlas-logo-link" aria-label="Atlas do Gás Renovável Ceará">
+                <img class="atlas-logo" src="./Atlas do Gás Renovável &amp; Calculadora.png" alt="Atlas do Gás Renovável Ceará">
+                <span class="atlas-logo-rotulo" aria-hidden="true">
+                  <span class="atlas-logo-titulo">ATLAS DO GÁS RENOVÁVEL</span>
+                  <span class="atlas-logo-subtitulo">CEARÁ</span>
+                </span>
+              </div>
             </div>
+            <nav class="atlas-nav" aria-label="Seções do atlas">
+              <a class="atlas-nav-link" href="https://storymaps.arcgis.com/stories/d3476caa5c2944098849a8635c6370f7#n-r8cu2k" target="atlas-storymap">Biogás e Biometano</a>
+              <a class="atlas-nav-link" href="https://storymaps.arcgis.com/stories/d3476caa5c2944098849a8635c6370f7#n-z8XcIf" target="atlas-storymap">Ceará e suas oportunidades</a>
+              <a class="atlas-nav-link" href="https://storymaps.arcgis.com/stories/d3476caa5c2944098849a8635c6370f7#n-7R2BcI" target="atlas-storymap">Meio Ambiente</a>
+              <a class="atlas-nav-link" href="https://storymaps.arcgis.com/stories/d3476caa5c2944098849a8635c6370f7#n-jrbZic" target="atlas-storymap">Simbiose Industrial</a>
+            </nav>
             <div class="atlas-acoes">
-              <button type="button" class="atlas-link" id="btn-calc-abrir" aria-haspopup="dialog" aria-controls="calc-modal">Abrir calculadora</button>
+              <button type="button" class="atlas-link atlas-link--cta" id="btn-calc-abrir" aria-haspopup="dialog" aria-controls="calc-modal">Calculadora</button>
             </div>
           </div>
           <iframe
             class="atlas-frame"
-            src="https://storymaps.arcgis.com/stories/d3476caa5c2944098849a8635c6370f7"
+            name="atlas-storymap"
+            src="https://storymaps.arcgis.com/stories/d3476caa5c2944098849a8635c6370f7#n-r8cu2k"
             title="Atlas do Gás Renovável Ceará"
             loading="lazy"
             allowfullscreen></iframe>
@@ -139,6 +151,30 @@
           </aside>
 
         </div>
+
+        <section class="notas" aria-label="Notas metodológicas">
+          <div>
+            <h3>Fatores aplicados</h3>
+            <ul>
+              <li><span>Resíduo orgânico de alimentos <i>EPE</i></span><b>91,7 Nm³/t</b></li>
+              <li><span>Resíduos vegetais / poda <i>Embrapa</i></span><b>40 Nm³/t</b></li>
+              <li><span>Esterco bovino fresco <i>Embrapa</i></span><b>38 Nm³/t</b></li>
+              <li><span>Dejetos suínos frescos <i>Embrapa</i></span><b>79 Nm³/t</b></li>
+              <li><span>Dejetos/esterco de aves <i>Embrapa</i></span><b>50 Nm³/t</b></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3>Como ler o resultado</h3>
+            <p>Os valores representam potencial teórico de geração, sem descontar perdas de coleta, eficiência do biodigestor ou rendimento do motogerador.</p>
+            <p>A energia expressa o conteúdo energético do biogás. A energia elétrica efetiva depende da tecnologia de conversão adotada.</p>
+          </div>
+
+          <div class="limite">
+            <h3>Limites de uso</h3>
+            <p>Ferramenta de triagem. Não substitui caracterização laboratorial do substrato nem ensaio de potencial bioquímico de metano (BMP) para dimensionar planta.</p>
+          </div>
+        </section>
       </div>
     </div>
   </div>
